@@ -1,6 +1,21 @@
+import tweepy
 from textblob import TextBlob
-import nltk
-nltk.download('punkt')
 
-wiki = TextBlob("Python is a high-level, general-purpose programming language.")
-print(wiki.tags)
+consumer_key = ''
+consumer_secret = ''
+
+access_token = ''
+access_token_secret = ''
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+
+public_tweets = api.search('Space')
+
+for tweet in public_tweets:
+    print(tweet.text)
+    analysis = TextBlob(tweet.text)
+    print(analysis.sentiment)
+    
